@@ -1,0 +1,41 @@
+LetsLinkLite Development Journey
+===============================
+
+1. Project Initialization
+   - Scaffolded a SwiftUI iOS app with login, tab bar (Events, Create, Profile).
+   - Defined an Event model and basic map view (MapView.swift).
+   - Added placeholder views for event list, detail, chat, and user profile.
+
+2. UI Polish and Navigation
+   - Unified Event struct, refactored duplicate models.
+   - Updated map views to iOS 17 Map API (MapCameraPosition, Annotation).
+   - Added navigable EventDetailView, ChatView, ProfileView.
+   - Implemented CreateEventFormView for event creation flow.
+
+3. Chat System
+   - Built ChatView with group and direct message threads, sections, icons.
+   - Added ChatRow UI with avatars, unread badges, delivery/seen states.
+   - Stubbed ChatThreadView for per-thread conversation screen.
+
+4. Data Scraping Backend
+   - Developed ScraperAgent in Python using Playwright, spaCy, Geopy.
+   - Created FastAPI server wrapping gather_data() endpoint for live data.
+   - Integrated sample OSM park data end-to-end into the SwiftUI map.
+
+5. Live Integration and Networking
+   - Built EventService (ObservableObject) to fetch events from local API.
+   - Updated MainTabView to load events on appear and recenter map when data arrives.
+   - Verified local server connectivity and JSON responses.
+
+Next Steps
+----------
+• Expand scraping functions: Yelp, Ticketmaster, Eventbrite, Meetup, Facebook Events.
+• Deploy ScraperAgent server to a public host (Heroku, Vercel, Fly.io) and secure with HTTPS/API key.
+• Enhance EventDetailView: real join API, like/bookmark persistence, chat input UI.
+• Implement user authentication and backend user profiles.
+• Persist events and chat messages locally (CoreData/SwiftData) for offline support.
+• Add push notifications for event reminders and new messages.
+• Integrate TestFlight distribution and update baseURL for production.
+• Add automated tests for UI (XCUITest) and network functions.
+
+For the next iteration, focus on connecting the real scraping backend, refining UI states, and building out data persistence and authentication.
