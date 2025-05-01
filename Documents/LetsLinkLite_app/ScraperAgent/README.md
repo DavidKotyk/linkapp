@@ -55,6 +55,26 @@ If you are picking up or continuing work on the ScraperAgent:
 
 4. Docker & Cloud Run Deployment:
    Follow the Dockerfile and top-level README.md in `LetsLinkLite_app` for building the container and deploying to Google Cloud Run.
+
+### Simplified Mode (OSM-only)
+To bypass the heavy Playwright-based scrapers and run a minimal agent that only fetches OSM parks:
+1. Deploy with the `SIMPLIFIED_AGENT` environment variable enabled:
+   ```bash
+   gcloud run deploy scraper-agent \
+     --image gcr.io/<PROJECT-ID>/scraper-agent:latest \
+     --platform managed \
+     --region us-central1 \
+     --allow-unauthenticated \
+     --concurrency 1 \
+     --port 8080 \
+     --set-env-vars SIMPLIFIED_AGENT=true
+   ```
+2. Test the endpoint:
+   ```bash
+   curl "$(gcloud run services describe scraper-agent \
+     --platform managed --region us-central1 --format 'value(status.url)')/events?city=San%20Francisco"
+   ```
+This is useful for quick smoke tests or when you want a lightweight fallback without Playwright.
 ## Docker & Google Cloud Run
 
 This agent can be containerized and deployed to Google Cloud Run for a fully-managed, autoscaling scraping service.

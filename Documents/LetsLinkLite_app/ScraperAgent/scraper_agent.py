@@ -1,9 +1,9 @@
 import asyncio
 import json
 import logging
-from playwright.async_api import async_playwright
-
 import requests
+import os
+from playwright.async_api import async_playwright
 
 from utils import random_delay, get_random_ua, rotate_proxy
 from parser import parse_event_description
@@ -106,50 +106,70 @@ def scrape_osm_parks(city: str) -> list:
     return results
 
 async def gather_data(city: str) -> list:
-    """Main entry point: gather and return combined structured data."""
+    """Main entry point: gather and return combined structured data from multiple sources."""
+    # Check for simplified mode: only fetch OSM parks (bypass Playwright)
+    if os.getenv('SIMPLIFIED_AGENT', 'false').lower() in ('true', '1', 'yes'):
+        results = []
+        try:
+            osm_data = scrape_osm_parks(city)
+            results.extend(osm_data)
+        except Exception as e:
+            logger.error(f"Simplified OSM scrape failed: {e}")
+        return results
+    
     results = []
-    async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=True)
-        # Create browser context with randomized UA and optional proxy
-        ua = get_random_ua()
-        proxy_cfg = rotate_proxy()
-        if proxy_cfg:
-            context = await browser.new_context(user_agent=ua, proxy=proxy_cfg)
-        else:
-            context = await browser.new_context(user_agent=ua)
-        page = await context.new_page()
-        # Scrape Yelp
-        try:
-            yelp_data = await scrape_yelp_city(page, city)
-            results.extend(yelp_data)
-        except Exception as e:
-            logger.error(f"Yelp scrape failed: {e}")
-        # Scrape Eventbrite
-        try:
-            eb_data = await scrape_eventbrite_city(page, city)
-            results.extend(eb_data)
-        except Exception as e:
-            logger.error(f"Eventbrite scrape failed: {e}")
-        # Scrape Meetup events
-        try:
-            meet_data = await scrape_meetup_city(page, city)
-            results.extend(meet_data)
-        except Exception as e:
-            logger.error(f"Meetup scrape failed: {e}")
-        await browser.close()
-    # Fetch nearby parks via OSM Nominatim as sample real data
+    # Launch browser-based scrapers
+    try:
+        async with async_playwright() as pw:
+            browser = await pw.chromium.launch(headless=True)
+            # Setup context with random UA and optional proxy
+            ua = get_random_ua()
+            proxy_cfg = rotate_proxy()
+            if proxy_cfg:
+                context = await browser.new_context(user_agent=ua, proxy=proxy_cfg)
+            else:
+                context = await browser.new_context(user_agent=ua)
+            page = await context.new_page()
+            # Yelp
+            try:
+                yelp_data = await scrape_yelp_city(page, city)
+                results.extend(yelp_data)
+            except Exception as e:
+                logger.error(f"Yelp scrape failed: {e}")
+            # Eventbrite
+            try:
+                eb_data = await scrape_eventbrite_city(page, city)
+                results.extend(eb_data)
+            except Exception as e:
+                logger.error(f"Eventbrite scrape failed: {e}")
+            # Meetup
+            try:
+                meet_data = await scrape_meetup_city(page, city)
+                results.extend(meet_data)
+            except Exception as e:
+                logger.error(f"Meetup scrape failed: {e}")
+            await browser.close()
+    except Exception as e:
+        logger.error(f"Browser scrapers failed: {e}")
+    # Fetch nearby parks via OSM Nominatim as fallback real data
     try:
         osm_data = scrape_osm_parks(city)
         results.extend(osm_data)
     except Exception as e:
         logger.error(f"OSM parks fetch failed: {e}")
-    # Geocode and parse descriptions
+    # Geocode and NLP parse for enriched fields
     for item in results:
         if 'address' in item:
-            coords = geocode_address(item['address'])
-            item['coordinates'] = coords
+            try:
+                coords = geocode_address(item['address'])
+                item['coordinates'] = coords
+            except Exception as e:
+                logger.error(f"Geocode failed: {e}")
         if 'description' in item:
-            item['entities'] = parse_event_description(item['description'])
+            try:
+                item['entities'] = parse_event_description(item['description'])
+            except Exception as e:
+                logger.error(f"Description parse failed: {e}")
     # TODO: normalize, dedupe, filter by relevance/distance
     return results
 
