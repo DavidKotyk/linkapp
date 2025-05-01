@@ -2,7 +2,7 @@
 # Dockerfile for ScraperAgent
 # Uses Microsoft Playwright Python image with all browser dependencies installed.
 #
-FROM mcr.microsoft.com/playwright/python:latest
+FROM --platform=linux/amd64 mcr.microsoft.com/playwright/python:latest
 
 # Set working directory
 WORKDIR /app
