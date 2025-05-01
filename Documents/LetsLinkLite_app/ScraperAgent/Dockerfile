@@ -30,5 +30,6 @@ ENV PORT 8080
 # Expose port for the FastAPI server
 EXPOSE 8080
 
-# Start the FastAPI server on the specified port (uses $PORT env var)
-CMD ["sh", "-c", "python3 -m uvicorn server:app --host 0.0.0.0 --port $PORT --log-level info"]
+# Start the FastAPI server on the specified port
+# Use a fixed port 8080 to avoid shell/emulation errors
+CMD ["python3", "-m", "uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8080", "--log-level", "info"]
