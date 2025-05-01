@@ -29,6 +29,32 @@ This will output structured JSON containing scraped event and venue data.
 - You must respect each site's Terms of Service.
 - Configure `PROXIES` in `utils.py` to use your own proxy servers.
 - Expand the `scrape_*` functions with actual parsing logic for each provider.
+## Resuming Development & Next Steps
+
+If you are picking up or continuing work on the ScraperAgent:
+
+1. Ensure you are in the project root directory (`LetsLinkLite_app`):
+   ```bash
+   cd path/to/LetsLinkLite_app/ScraperAgent
+   ```
+
+2. Install dependencies and Playwright:
+   ```bash
+   pip install -r requirements.txt
+   python -m spacy download en_core_web_sm
+   playwright install --with-deps
+   ```
+
+3. Run locally for testing:
+   ```bash
+   python scraper_agent.py "San Francisco"
+   # Or start the API server:
+   uvicorn server:app --host 0.0.0.0 --port 8000
+   curl "http://localhost:8000/events?city=San%20Francisco"
+   ```
+
+4. Docker & Cloud Run Deployment:
+   Follow the Dockerfile and top-level README.md in `LetsLinkLite_app` for building the container and deploying to Google Cloud Run.
 ## Docker & Google Cloud Run
 
 This agent can be containerized and deployed to Google Cloud Run for a fully-managed, autoscaling scraping service.

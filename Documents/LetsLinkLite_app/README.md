@@ -32,3 +32,42 @@ README.md
 LetsLinkLite/        # iOS app Xcode project
 ScraperAgent/        # Python scraping agent
 ```
+## Developer Onboarding & Resuming Work
+
+If you are starting or resuming development, follow these steps from the project root (`LetsLinkLite_app`):
+
+1. Clone the repository (if not already):
+   ```bash
+   git clone git@github.com:DavidKotyk/linkapp.git LetsLinkLite_app
+   cd LetsLinkLite_app
+   ```
+
+2. iOS App Setup:
+   ```bash
+   cd LetsLinkLite/LetsLinkLite.xcodeproj
+   open .
+   # Build & run in Xcode (iOS 17+)
+   ```
+
+3. ScraperAgent Setup:
+   ```bash
+   cd ScraperAgent
+   # Install Python deps and Playwright
+   pip install -r requirements.txt
+   python -m spacy download en_core_web_sm
+   playwright install --with-deps
+   ```
+
+4. Local Testing:
+   ```bash
+   # Run scraper agent against a city
+   python scraper_agent.py "San Francisco"
+   # Or start the FastAPI server
+   uvicorn server:app --host 0.0.0.0 --port 8000
+   curl "http://localhost:8000/events?city=San%20Francisco"
+   ```
+
+5. Deployment (Cloud Run):
+   See `ScraperAgent/Dockerfile` and README in `ScraperAgent/` for Docker build and Google Cloud Run deployment instructions.
+
+All paths are relative to the root directory of the project (`LetsLinkLite_app`).
