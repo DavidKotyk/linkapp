@@ -29,3 +29,31 @@ This will output structured JSON containing scraped event and venue data.
 - You must respect each site's Terms of Service.
 - Configure `PROXIES` in `utils.py` to use your own proxy servers.
 - Expand the `scrape_*` functions with actual parsing logic for each provider.
+## Docker & Google Cloud Run
+
+This agent can be containerized and deployed to Google Cloud Run for a fully-managed, autoscaling scraping service.
+
+1. Build & push Docker image:
+   ```bash
+   cd ScraperAgent
+   docker build -t gcr.io/<PROJECT-ID>/scraper-agent:latest .
+   docker push gcr.io/<PROJECT-ID>/scraper-agent:latest
+   ```
+
+2. Deploy to Cloud Run:
+   ```bash
+   gcloud run deploy scraper-agent \
+     --image gcr.io/<PROJECT-ID>/scraper-agent:latest \
+     --platform managed \
+     --region us-central1 \
+     --allow-unauthenticated \
+     --concurrency 1 \
+     --port 8080
+   ```
+
+3. After deployment, your service URL will be printed. You can fetch events via:
+   ```bash
+   curl "https://<SERVICE-URL>/events?city=San Francisco"
+   ```
+
+Replace `<PROJECT-ID>` and `<SERVICE-URL>` with your GCP project ID and the URL shown by Cloud Run.
