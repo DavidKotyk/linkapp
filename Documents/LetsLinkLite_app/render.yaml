@@ -1,5 +1,5 @@
 services:
-  - type: web
+  - type: web_service
     name: scraper-agent
     env: python
     # Build runs from repo root; cd into ScraperAgent directory first
