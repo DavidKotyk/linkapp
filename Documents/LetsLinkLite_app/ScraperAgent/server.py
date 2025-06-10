@@ -1,24 +1,31 @@
+# Core dependencies
 from fastapi import FastAPI, HTTPException
+from dotenv import load_dotenv
 import uvicorn
+import os
 
+# Load environment variables
+load_dotenv()
 from scraper_agent import gather_data
+from typing import List
+from models import ScrapedEvent
 
 app = FastAPI(
-    title="LetsLinkLite Scraper API",
-    description="API endpoint to fetch local events and venues",
+    title="LetsLink Lite Facebook Events Scraper",
+    description="API to scrape Facebook Events using a shared LetsLink account",
 )
 
-@app.get("/events", summary="Get events for a city")
-@app.get("/events/", summary="Get events for a city")
-async def get_events(city: str):
+@app.get("/events", response_model=List[ScrapedEvent])
+@app.get("/events/", response_model=List[ScrapedEvent])
+async def get_events(city: str = "") -> list[ScrapedEvent]:
     """
-    Fetch events near the specified city.
+    Scrape Eventbrite events for the given city and return a list of events.
     """
     try:
-        data = await gather_data(city)
-        return data
+        events = await gather_data(city)
+        return events
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))
