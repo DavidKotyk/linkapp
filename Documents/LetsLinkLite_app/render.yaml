@@ -1,15 +1,13 @@
 services:
-  - type: web_service
+  - type: web
     name: scraper-agent
     env: python
-    # Build runs from repo root; cd into ScraperAgent directory first
+    rootDirectory: ScraperAgent
     plan: free
     autoDeploy: true
     buildCommand: |
-      cd ScraperAgent
       pip install --upgrade pip
       pip install -r requirements.txt
       npx playwright install --with-deps
     startCommand: |
-      cd ScraperAgent
       uvicorn server:app --host 0.0.0.0 --port $PORT
