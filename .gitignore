@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Distribution / packaging
+build/
+dist/
+eggs/
+*.egg-info/
+
+# Logs and databases
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# macOS
+.DS_Store
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Editor directories
+.vscode/
+.idea/
