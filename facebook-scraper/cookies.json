@@ -1,0 +1,22 @@
+[
+  {
+    "name": "xs",
+    "value": "18%3AYowx_NnTjxAPqQ%3А2%3А1726433790%3А-1%3А-1%3A%3AAcVg0JpuRkuZLlbbk_zso78Wsum3Pbhs9sLpdQkvvg",
+    "domain": ".facebook.com",
+    "path": "/",
+    "expires": 1758283301,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "c_user",
+    "value": "61566109643192",
+    "domain": ".facebook.com",
+    "path": "/",
+    "expires": 1758283301,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  }
+]
