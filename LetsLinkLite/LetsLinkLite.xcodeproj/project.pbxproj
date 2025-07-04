@@ -16,6 +16,7 @@
 		350D40FE2E1731DC00C2F86E /* ClusterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350D40FD2E1731DC00C2F86E /* ClusterListView.swift */; };
 		350D41002E17705600C2F86E /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350D40FF2E17705600C2F86E /* UserModel.swift */; };
 		350D41022E177F0700C2F86E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350D41012E177F0700C2F86E /* ProfileView.swift */; };
+		350D41042E18243A00C2F86E /* ChatWebSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350D41032E18243A00C2F86E /* ChatWebSocketClient.swift */; };
 		350DDAAD2DB2BC8D0077C77F /* EventChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350DDAAC2DB2BC8D0077C77F /* EventChatView.swift */; };
 		351AA2BC2DB2849C00AE2A51 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351AA2BB2DB2849C00AE2A51 /* EventDetailView.swift */; };
 		35210EE22DB1FE9B00F69194 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35210EE12DB1FE9B00F69194 /* ContentView.swift */; };
@@ -66,6 +67,7 @@
 		350D40FD2E1731DC00C2F86E /* ClusterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterListView.swift; sourceTree = "<group>"; };
 		350D40FF2E17705600C2F86E /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		350D41012E177F0700C2F86E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		350D41032E18243A00C2F86E /* ChatWebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWebSocketClient.swift; sourceTree = "<group>"; };
 		350DDAAC2DB2BC8D0077C77F /* EventChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventChatView.swift; sourceTree = "<group>"; };
 		351AA2BB2DB2849C00AE2A51 /* EventDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		35210EE12DB1FE9B00F69194 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		35CD66612DB18BC1009F0F8C /* LetsLinkLite */ = {
 			isa = PBXGroup;
 			children = (
+				350D41032E18243A00C2F86E /* ChatWebSocketClient.swift */,
 				350D40FF2E17705600C2F86E /* UserModel.swift */,
 				350D40FD2E1731DC00C2F86E /* ClusterListView.swift */,
 				350D40FB2E17307300C2F86E /* ClusteredMapView.swift */,
@@ -350,6 +353,7 @@
 				35961BD42DB2E87F00371E72 /* ReportView.swift in Sources */,
 				350D41022E177F0700C2F86E /* ProfileView.swift in Sources */,
 				35210EE22DB1FE9B00F69194 /* ContentView.swift in Sources */,
+				350D41042E18243A00C2F86E /* ChatWebSocketClient.swift in Sources */,
 				3527D9F32DB2D4030025868E /* DataLoader.swift in Sources */,
 				35CD66992DB18C22009F0F8C /* MainTabView.swift in Sources */,
 				351AA2BC2DB2849C00AE2A51 /* EventDetailView.swift in Sources */,
