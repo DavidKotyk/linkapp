@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "geo_chat_all_chats_temp_image.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "geo_chat_all_chats_temp_image@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "geo_chat_all_chats_temp_image@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
